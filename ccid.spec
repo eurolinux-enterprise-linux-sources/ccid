@@ -5,7 +5,7 @@
 
 Name:           ccid
 Version:        1.3.9
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 Group:          System Environment/Libraries
@@ -18,6 +18,8 @@ Patch3:		ccid-readers-3.4.14.patch
 Patch4:		ccid-omnikey-3121.patch
 Patch5:         ccid-1.3.8-r6_8_readers.patch
 Patch6:		ccid-1.3.9-omnikey-3022.patch
+Patch7:		ccid-1.3.9-yubikey.patch
+Patch8:		ccid-1.3.9-hp-keyboard-fix.patch
 
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,6 +47,8 @@ Generic USB CCID (Chip/Smart Card Interface Devices) driver.
 %patch4 -b .omni_key_3121
 %patch5 -b .r6_8_readers
 %patch6 -b .omnikey_3022
+%patch7 -b .yubikey
+%patch8 -b .hp-keyboard-fix
 
 for f in ChangeLog README ; do
   iconv -f iso-8859-1 -t utf-8 $f > $f.utf8 ; mv $f.utf8 $f
@@ -93,6 +97,12 @@ exit 0
 
 
 %changelog
+* Thu Sep 8 2016  Bob Relyea <rrelyea@redhat.com> - 1.3.9-11
+- fix spurious warning with hp keyboards
+
+* Thu Aug 11 2016  Bob Relyea <rrelyea@redhat.com> - 1.3.9-10
+- Add USB id's for Yubikey PIV
+
 * Fri Jan 29 2016  Bob Relyea <rrelyea@redhat.com> - 1.3.9-9
 - Omnikey 3022 needs to use the same T1 code as omnikey 3021
 
