@@ -5,7 +5,7 @@
 
 Name:           ccid
 Version:        1.3.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Generic USB CCID smart card reader driver
 
 Group:          System Environment/Libraries
@@ -14,6 +14,8 @@ URL:            http://pcsclite.alioth.debian.org/ccid.html
 Source0:        http://alioth.debian.org/download.php/%{upstream_build}/%{name}-%{version}.tar.bz2
 Patch1:		ccid-1.3.9-voltage.patch
 Patch2:		ccid-CVE-2010-4530.patch
+Patch3:		ccid-readers-3.4.14.patch
+Patch4:		ccid-omnikey-3121.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -36,6 +38,8 @@ Generic USB CCID (Chip/Smart Card Interface Devices) driver.
 %setup -q
 %patch1 -b .voltage
 %patch2 -b .cve-2010-4530
+%patch3 -b .new_readers
+%patch4 -b .omni_key_3121
 
 for f in ChangeLog README ; do
   iconv -f iso-8859-1 -t utf-8 $f > $f.utf8 ; mv $f.utf8 $f
@@ -84,7 +88,11 @@ exit 0
 
 
 %changelog
-* Mon Dec 10 2011  Bob Relyea <rrelyea@redhat.com> - 1.3.9.6
+* Mon May 5 2014  Bob Relyea <rrelyea@redhat.com> - 1.3.9-7
+- Add additional id's for new readers 
+- Allow longer ccid messages
+
+* Mon Dec 10 2011  Bob Relyea <rrelyea@redhat.com> - 1.3.9-6
 - CVE-2010-4530 patch
 
 * Mon Oct 15 2011  Bob Relyea <rrelyea@redhat.com> - 1.3.9-5
